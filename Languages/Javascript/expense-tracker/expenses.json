@@ -1,0 +1,37 @@
+[
+    {
+        "amount": 1023.45,
+        "description": "Spent on Pushpa 2 movie on weekends",
+        "category": "Entertainment",
+        "id": 1,
+        "date": "2024-11-9"
+    },
+    {
+        "amount": 1023.45,
+        "description": "Spent on Pushpa 2 movie on weekends",
+        "category": "Entertainment",
+        "id": 2,
+        "date": "2024-11-9"
+    },
+    {
+        "amount": 1023.45,
+        "description": "Spent on Pushpa 2 movie on weekends",
+        "category": "Food",
+        "id": 3,
+        "date": "2024-11-9"
+    },
+    {
+        "amount": 1023.45,
+        "description": "Spent on Pushpa 2 movie on weekends",
+        "category": "Others",
+        "id": 3,
+        "date": "2024-11-9"
+    },
+    {
+        "amount": 1023.45,
+        "description": "Spent on Pushpa 2 movie on weekends",
+        "category": "Transport",
+        "id": 3,
+        "date": "2024-11-9"
+    }
+]

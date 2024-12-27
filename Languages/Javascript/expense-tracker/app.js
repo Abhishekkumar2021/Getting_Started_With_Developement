@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { Command, Option, Argument } from "commander";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { table } from "table"
 import chalk from 'chalk';
 
@@ -89,11 +89,11 @@ class ExpenseTracker {
 
   listExpenses() {
     const data = []
-    if(this.expenses.length === 0) {
+    if (this.expenses.length === 0) {
       console.log(chalk.yellowBright("No expenses found!"));
       return;
     }
-    
+
     // Add header
     data.push(["ID", "Amount", "Category", "Date", "Description"]);
 
@@ -170,11 +170,10 @@ function checkDateFormat(dateString) {
   if (dateParts[2].length > 2 || dateParts[2].length < 1) return false;
   return true;
 }
-
 const command = new Command();
 
 command
-  .addArgument(new Argument("<command>", "The main command that the expense-tracker will run.").choices(["add", "list", "delete", "update", "summary"]))
+  .addArgument(new Argument("<command>" , "The main command that the expense-tracker will run.").choices(["add", "list", "delete", "update", "summary"]))
   .addOption(new Option("-a, --amount <amount>", "The amount of the expense.").argParser(parseFloat))
   .addOption(new Option("-d, --description <description>", "The description of the expense."))
   .addOption(new Option("-c, --category <category>", "The category of the expense.").choices(["Food", "Transport", "Entertainment", "Other"]))
@@ -184,10 +183,7 @@ command
   .addOption(new Option("-m --month <month>", "The month of the summary.").choices(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]))
   .addOption(new Option("-dt, --date <date>", "The date of the expense."));
 
-
-
 command.parse(process.argv);
-
 const options = command.opts();
 const args = command.args;
 
