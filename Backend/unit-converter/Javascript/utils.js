@@ -43,7 +43,7 @@ export function convertTemperature(from, to, val) {
         if (to == "celsius") {
             return (val - 32) / 1.8
         } else if (to == "kelvin") {
-            (val - 32) / 1.8 + 273.15
+           return  (val - 32) / 1.8 + 273.15
         } else {
             throw Error("invalid to unit!")
         }
