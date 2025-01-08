@@ -1,11 +1,11 @@
 import { readFileSync, writeFileSync } from "node:fs"
 
-type SimpleArticle = {
+export type SimpleArticle = {
     id: number,
     name: string
 }
 
-class ArticleDatabase{
+export class ArticleDatabase{
     private readonly ARTICLE_FILE_PATH = "/Users/abhishek/Dev/Akansha/Development/Backend/personal-blog/Typescript/src/db/articles.json"
     articles: SimpleArticle[] = []
 
@@ -56,5 +56,16 @@ class ArticleDatabase{
         }
 
         return index
+    }
+
+    getMaxId(){
+        let maxId = 0
+        for (const article of this.articles) {
+            if (article.id > maxId) {
+                maxId = article.id
+            }
+        }
+
+        return maxId
     }
 }
