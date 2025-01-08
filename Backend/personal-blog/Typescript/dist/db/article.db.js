@@ -9,7 +9,12 @@ export class ArticleDatabase {
     loadArticles() {
         const fileData = readFileSync(this.ARTICLE_FILE_PATH);
         const jsonString = fileData.toString();
-        this.articles = JSON.parse(jsonString);
+        if (jsonString !== "")
+            this.articles = JSON.parse(jsonString);
+        for (const article of this.articles) {
+            article.createdAt = new Date(article.createdAt);
+            article.updatedAt = new Date(article.updatedAt);
+        }
     }
     writeArticles() {
         const jsonString = JSON.stringify(this.articles);

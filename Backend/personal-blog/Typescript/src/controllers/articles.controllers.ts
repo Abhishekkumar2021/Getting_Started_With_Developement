@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
-import { readFileSync, writeFileSync } from "node:fs"
-import { ReasonPhrases, StatusCodes } from "http-status-codes"
-import { ArticleDatabase, SimpleArticle } from "../db/article.db.js"
+import { StatusCodes } from "http-status-codes"
+import { ArticleDatabase } from "../db/article.db.js"
+import Article from "../models/article.js"
 
 const articleDb = new ArticleDatabase()
 
@@ -36,13 +36,17 @@ export function getArticleById(req: Request, res: Response) {
 }
 
 export function createArticle(req: Request, res: Response) {
-    const body = req.body
+    const { authorId, title, content } = req.body
     let maxId = articleDb.getMaxId()
 
     // Add new article to the array
-    const newArticle: SimpleArticle = {
+    const newArticle: Article = {
         id: maxId + 1,
-        name: body.name
+        authorId: authorId,
+        title: title,
+        content: content,
+        createdAt: new Date(),
+        updatedAt: new Date()
     }
 
     articleDb.createArticle(newArticle)
@@ -57,26 +61,31 @@ export function updateArticleById(req: Request, res: Response) {
     const { id } = req.params
     const body = req.body
 
-   
     const foundArticle = articleDb.getArticleById(parseInt(id))
-    
+
     if (!foundArticle) {
         res.status(StatusCodes.NOT_FOUND)
         res.json({
             message: "Article with given ID is not found",
             statusCode: StatusCodes.NOT_FOUND
         })
-        
+
         return;
     }
 
-    foundArticle.name = body.name
-    articleDb.updateArticleById(parseInt(id), foundArticle)
-    
+    const updatedArticle = {
+        ...foundArticle,
+        ...body,
+    }
+
+    updatedArticle.updatedAt = new Date()
+
+    articleDb.updateArticleById(parseInt(id), updatedArticle)
+
     res.status(StatusCodes.OK)
     res.json({
         message: "Successfully updated the article",
-        data: foundArticle
+        data: updatedArticle
     })
 }
 
@@ -96,7 +105,7 @@ export function deleteArticleById(req: Request, res: Response) {
         return;
     }
 
-    
+
     res.status(StatusCodes.OK)
     res.json({
         message: "Successfully deleted the article",

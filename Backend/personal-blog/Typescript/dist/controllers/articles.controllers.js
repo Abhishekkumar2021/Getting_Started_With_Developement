@@ -27,12 +27,16 @@ export function getArticleById(req, res) {
     });
 }
 export function createArticle(req, res) {
-    const body = req.body;
+    const { authorId, title, content } = req.body;
     let maxId = articleDb.getMaxId();
     // Add new article to the array
     const newArticle = {
         id: maxId + 1,
-        name: body.name
+        authorId: authorId,
+        title: title,
+        content: content,
+        createdAt: new Date(),
+        updatedAt: new Date()
     };
     articleDb.createArticle(newArticle);
     res.status(StatusCodes.CREATED);
@@ -53,12 +57,13 @@ export function updateArticleById(req, res) {
         });
         return;
     }
-    foundArticle.name = body.name;
-    articleDb.updateArticleById(parseInt(id), foundArticle);
+    const updatedArticle = Object.assign(Object.assign({}, foundArticle), body);
+    updatedArticle.updatedAt = new Date();
+    articleDb.updateArticleById(parseInt(id), updatedArticle);
     res.status(StatusCodes.OK);
     res.json({
         message: "Successfully updated the article",
-        data: foundArticle
+        data: updatedArticle
     });
 }
 export function deleteArticleById(req, res) {

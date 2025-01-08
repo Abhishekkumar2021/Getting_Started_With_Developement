@@ -1,46 +1,53 @@
 import { readFileSync, writeFileSync } from "node:fs"
+import Article from "../models/article.js"
 
 export type SimpleArticle = {
     id: number,
     name: string
 }
 
-export class ArticleDatabase{
+export class ArticleDatabase {
     private readonly ARTICLE_FILE_PATH = "/Users/abhishek/Dev/Akansha/Development/Backend/personal-blog/Typescript/src/db/articles.json"
-    articles: SimpleArticle[] = []
+    articles: Article[] = []
 
-    constructor(){
+    constructor() {
         // load the articles from the file
         this.loadArticles()
     }
 
-    loadArticles(){
+    loadArticles() {
         const fileData = readFileSync(this.ARTICLE_FILE_PATH)
         const jsonString = fileData.toString()
-        this.articles = JSON.parse(jsonString)
+
+        if (jsonString !== "") this.articles = JSON.parse(jsonString)
+
+        for (const article of this.articles) {
+            article.createdAt = new Date(article.createdAt)
+            article.updatedAt = new Date(article.updatedAt)
+        }
     }
 
-    writeArticles(){
+    writeArticles() {
         const jsonString = JSON.stringify(this.articles)
         writeFileSync(this.ARTICLE_FILE_PATH, jsonString)
     }
 
-    getAllArticles(){
+    getAllArticles() {
         return this.articles
     }
 
-    getArticleById(id: number){
+    getArticleById(id: number) {
         return this.articles.find(article => article.id === id)
     }
 
-    createArticle(article: SimpleArticle){
+    createArticle(article: Article) {
         this.articles.push(article)
         this.writeArticles()
     }
 
-    updateArticleById(id: number, article: SimpleArticle){
+    updateArticleById(id: number, article: Article) {
         const index = this.articles.findIndex(article => article.id === id)
-        if(index !== -1){
+        if (index !== -1) {
             this.articles[index] = article
             this.writeArticles()
         }
@@ -48,9 +55,9 @@ export class ArticleDatabase{
         return index
     }
 
-    deleteArticleById(id: number){
+    deleteArticleById(id: number) {
         const index = this.articles.findIndex(article => article.id === id)
-        if(index !== -1){
+        if (index !== -1) {
             this.articles.splice(index, 1)
             this.writeArticles()
         }
@@ -58,7 +65,7 @@ export class ArticleDatabase{
         return index
     }
 
-    getMaxId(){
+    getMaxId() {
         let maxId = 0
         for (const article of this.articles) {
             if (article.id > maxId) {
