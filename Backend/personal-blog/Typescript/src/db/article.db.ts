@@ -70,4 +70,8 @@ export class ArticleDatabase {
 
         return maxId
     }
+
+    getArticlesByAuthorId(authorId: number) {
+        return this.articles.filter(article => article.authorId === authorId)
+    }
 }

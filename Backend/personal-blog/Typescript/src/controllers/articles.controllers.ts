@@ -14,6 +14,26 @@ export function getAllArticles(req: Request, res: Response) {
     })
 }
 
+export function getArticlesByAuthorId(req: Request, res: Response) {
+    const { id } = req.params
+    const articles = articleDb.getArticlesByAuthorId(parseInt(id))
+
+    if (articles.length === 0) {
+        res.status(StatusCodes.NOT_FOUND)
+        res.json({
+            message: "Articles with given author ID is not found",
+            statusCode: StatusCodes.NOT_FOUND
+        })
+
+        return;
+    }
+
+    res.status(StatusCodes.OK)
+    res.json({
+        message: "Succesfully fetched the articles",
+        data: articles
+    })
+}
 export function getArticleById(req: Request, res: Response) {
     const { id } = req.params
     const foundArticle = articleDb.getArticleById(parseInt(id))
