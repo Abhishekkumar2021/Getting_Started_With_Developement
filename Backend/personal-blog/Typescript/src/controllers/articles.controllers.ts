@@ -1,10 +1,17 @@
 import { Request, Response } from "express"
-import { readFileSync } from "node:fs"
+import { readFileSync, writeFileSync } from "node:fs"
 import { ReasonPhrases, StatusCodes } from "http-status-codes"
+
+type SimpleArticle = {
+    id: number,
+    name: string
+}
+
+const ARTICLE_FILE_PATH = "/Users/abhishek/Dev/Akansha/Development/Backend/personal-blog/Typescript/src/db/articles.json"
 
 export function getAllArticles(req: Request, res: Response) {
     try {
-        const fileData = readFileSync("/Users/abhishek/Dev/Akansha/Development/Backend/personal-blog/Typescript/src/db/articles.json")
+        const fileData = readFileSync(ARTICLE_FILE_PATH)
 
         const jsonString = fileData.toString()
         const articles: [] = JSON.parse(jsonString)
@@ -31,7 +38,7 @@ export function getAllArticles(req: Request, res: Response) {
 export function getArticleById(req: Request, res: Response) {
     const { id } = req.params
     try {
-        const fileData = readFileSync("/Users/abhishek/Dev/Akansha/Development/Backend/personal-blog/Typescript/src/db/articles.json")
+        const fileData = readFileSync(ARTICLE_FILE_PATH)
 
         const jsonString = fileData.toString()
         const articles: [] = JSON.parse(jsonString)
@@ -69,18 +76,102 @@ export function getArticleById(req: Request, res: Response) {
 
 export function createArticle(req: Request, res: Response) {
     const body = req.body
-    console.log(body)
 
+    // Load data from file
+    const fileData = readFileSync(ARTICLE_FILE_PATH)
+    const jsonString = fileData.toString()
+    const articles: [SimpleArticle] = JSON.parse(jsonString)
+
+    let maxId = 0
+    for(const article of articles) {
+        if(article.id > maxId) {
+            maxId = article.id
+        }
+    }
+
+    // Add new article to the array
+    const newArticle: SimpleArticle = {
+        id: maxId + 1,
+        name: body.name
+    }
+
+    articles.push(newArticle)
+
+    // Write the new array back to the file
+    const articlesString = JSON.stringify(articles)
+    writeFileSync(ARTICLE_FILE_PATH, articlesString)
+
+    res.status(StatusCodes.CREATED)
     res.json({
-        message: "I am sending you your sent data",
-        data: body
+        message: "Successfully created the article",
+        data: newArticle
     })
 }
 
 export function updateArticleById(req: Request, res: Response) {
-    res.send("updateArticleById")
+    const {id} = req.params
+    const body = req.body
+
+    // Load data from file
+    const fileData = readFileSync(ARTICLE_FILE_PATH)
+    const jsonString = fileData.toString()
+    const articles: [SimpleArticle] = JSON.parse(jsonString)
+
+    const foundIndex = articles.findIndex((article: SimpleArticle) => article.id === parseInt(id))
+
+    if(foundIndex === -1) {
+        res.status(StatusCodes.NOT_FOUND)
+        res.json({
+            message: "Article with given ID is not found",
+            statusCode: StatusCodes.NOT_FOUND
+        })
+
+        return;
+    }
+
+    articles[foundIndex].name = body.name
+
+    // Write the new array back to the file
+    const articlesString = JSON.stringify(articles)
+    writeFileSync(ARTICLE_FILE_PATH, articlesString)
+
+    res.status(StatusCodes.OK)
+    res.json({
+        message: "Successfully updated the article",
+        data: articles[foundIndex]
+    })
 }
 
 export function deleteArticleById(req: Request, res: Response) {
-    res.send("deleteArticleById")
+    const {id} = req.params
+
+    // Load data from file
+    const fileData = readFileSync(ARTICLE_FILE_PATH)
+    const jsonString = fileData.toString()
+    const articles: [SimpleArticle] = JSON.parse(jsonString)
+
+    const foundIndex = articles.findIndex((article: SimpleArticle) => article.id === parseInt(id))
+
+    if(foundIndex === -1) {
+        res.status(StatusCodes.NOT_FOUND)
+        res.json({
+            message: "Article with given ID is not found",
+            statusCode: StatusCodes.NOT_FOUND
+        })
+
+        return;
+    }
+
+    const deletedArticle = articles[foundIndex]
+    articles.splice(foundIndex, 1)
+
+    // Write the new array back to the file
+    const articlesString = JSON.stringify(articles)
+    writeFileSync(ARTICLE_FILE_PATH, articlesString)
+
+    res.status(StatusCodes.OK)
+    res.json({
+        message: "Successfully deleted the article",
+        data: deletedArticle
+    })
 }
