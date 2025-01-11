@@ -3,7 +3,7 @@ import User from "../models/user.js"
 
 
 export class UserDatabase {
-    private readonly USER_FILE_PATH = "/Users/abhishek/Dev/Akansha/Development/Backend/personal-blog/Typescript/src/db/users.json"
+    private readonly USER_FILE_PATH = "src/db/users.json"
     users: User[] = []
 
     constructor() {

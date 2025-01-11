@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 export class UserDatabase {
     constructor() {
-        this.USER_FILE_PATH = "/Users/abhishek/Dev/Akansha/Development/Backend/personal-blog/Typescript/src/db/users.json";
+        this.USER_FILE_PATH = "src/db/users.json";
         this.users = [];
         // load the users from the file
         this.loadUsers();

@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 export class ArticleDatabase {
     constructor() {
-        this.ARTICLE_FILE_PATH = "/Users/abhishek/Dev/Akansha/Development/Backend/personal-blog/Typescript/src/db/articles.json";
+        this.ARTICLE_FILE_PATH = "src/db/articles.json";
         this.articles = [];
         // load the articles from the file
         this.loadArticles();
@@ -54,5 +54,8 @@ export class ArticleDatabase {
             }
         }
         return maxId;
+    }
+    getArticlesByAuthorId(authorId) {
+        return this.articles.filter(article => article.authorId === authorId);
     }
 }

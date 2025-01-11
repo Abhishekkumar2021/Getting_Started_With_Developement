@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync } from "node:fs"
 import Article from "../models/article.js"
 
 export class ArticleDatabase {
-    private readonly ARTICLE_FILE_PATH = "/Users/abhishek/Dev/Akansha/Development/Backend/personal-blog/Typescript/src/db/articles.json"
+    private readonly ARTICLE_FILE_PATH = "src/db/articles.json"
     articles: Article[] = []
 
     constructor() {

@@ -1,0 +1,23 @@
+.navbar{
+    background-color: #ffffff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+}
+
+.navbar .logo{
+    color: rgb(20, 45, 235);
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+
+.navbar .links{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}

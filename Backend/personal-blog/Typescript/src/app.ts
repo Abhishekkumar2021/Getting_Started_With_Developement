@@ -2,6 +2,7 @@ import express, { Express } from "express"
 import bodyParser from "body-parser"
 import userRouter from "./routes/user.routes.js"
 import articleRouter from "./routes/article.routes.js"
+import cors from "cors"
 
 // Server object
 const app: Express = express()
@@ -13,6 +14,9 @@ app.listen(8080, () => {
 
 // JSON parsing middleware
 app.use(bodyParser.json())
+
+// CORS middleware
+app.use(cors())
 
 // Use the routers
 app.use(userRouter)
