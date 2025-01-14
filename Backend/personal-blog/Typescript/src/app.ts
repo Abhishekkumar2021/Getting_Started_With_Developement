@@ -3,6 +3,7 @@ import bodyParser from "body-parser"
 import userRouter from "./routes/user.routes.js"
 import articleRouter from "./routes/article.routes.js"
 import cors from "cors"
+import authRouter from "./routes/auth.routes.js"
 
 // Server object
 const app: Express = express()
@@ -21,3 +22,4 @@ app.use(cors())
 // Use the routers
 app.use(userRouter)
 app.use(articleRouter)
+app.use(authRouter)

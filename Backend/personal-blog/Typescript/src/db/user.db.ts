@@ -36,6 +36,10 @@ export class UserDatabase {
         return this.users.find(user => user.id === id)
     }
 
+    getUserByUsername(username: string) {
+        return this.users.find(user => user.username === username)
+    }
+
     createUser(user: User) {
         this.users.push(user)
         this.writeUsers()
