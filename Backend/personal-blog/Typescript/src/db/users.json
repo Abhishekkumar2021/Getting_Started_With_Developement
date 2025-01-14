@@ -1,1 +1,38 @@
-[{"id":1,"email":"ashish@gmail.com","password":"Strong_Password","name":"Ashish","username":"ashish2005","createdAt":"2025-01-12T09:35:03.523Z","updatedAt":"2025-01-12T09:35:03.523Z"},{"id":2,"email":"ashish@gmail.com","password":"Strong_Password","name":"Ashish","username":"ashish_kumar","createdAt":"2025-01-12T09:36:26.244Z","updatedAt":"2025-01-12T09:36:26.244Z"}]
+[
+    {
+        "id": 1,
+        "email": "ashish@gmail.com",
+        "password": "Strong_Password",
+        "name": "Ashish",
+        "username": "ashish2005",
+        "createdAt": "2025-01-12T09:35:03.523Z",
+        "updatedAt": "2025-01-12T09:35:03.523Z"
+    },
+    {
+        "id": 2,
+        "email": "ashish@gmail.com",
+        "password": "Strong_Password",
+        "name": "Ashish",
+        "username": "ashish_kumar",
+        "createdAt": "2025-01-12T09:36:26.244Z",
+        "updatedAt": "2025-01-12T09:36:26.244Z"
+    },
+    {
+        "id": 3,
+        "email": "akansha@gmail.com",
+        "password": "12345678",
+        "name": "Akansha",
+        "username": "akansha",
+        "createdAt": "2025-01-14T17:35:32.846Z",
+        "updatedAt": "2025-01-14T17:35:32.846Z"
+    },
+    {
+        "id": 4,
+        "email": "akansha_1@gmail.com",
+        "password": "123456",
+        "name": "Akansha",
+        "username": "akansha_1",
+        "createdAt": "2025-01-14T17:49:52.591Z",
+        "updatedAt": "2025-01-14T17:49:52.591Z"
+    }
+]

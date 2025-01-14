@@ -1,6 +1,6 @@
 import { MouseEvent, useRef, useState } from "react";
 import "../styles/Signup.css";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 export default function Signup() {
     // References for each input field
@@ -9,6 +9,9 @@ export default function Signup() {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
     const confirmPasswordRef = useRef<HTMLInputElement>(null);
+
+    // Hook to navigate to different pages
+    const navigate = useNavigate();
 
     // State for error message
     const [error, setError] = useState<string | null>(null);
@@ -49,7 +52,7 @@ export default function Signup() {
         // Send a POST request to the server
         try {
             const BASE_URL = "http://localhost:8080";
-            await fetch(`${BASE_URL}/auth/signup`, {
+            const response = await fetch(`${BASE_URL}/auth/signup`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -57,7 +60,16 @@ export default function Signup() {
                 body: jsonString
             })
 
-            // Navigate to Dashboard
+            const {message} = await response.json();
+
+            if(response.status === 400) {
+                setError(message);
+                clearError();
+                return;
+            }
+
+            // Navigate to Login page
+            navigate("/login");
         } catch (error) {
             console.log(error);
             setError("An error occurred. Please try again later.");

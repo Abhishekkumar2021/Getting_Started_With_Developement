@@ -1,6 +1,6 @@
 import { MouseEvent, useRef, useState } from "react";
 import "../styles/Login.css";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 export default function Login() {
     // References for each input field
@@ -9,7 +9,7 @@ export default function Login() {
 
     // State for error message
     const [error, setError] = useState<string | null>(null);
-
+    const navigate = useNavigate();
     function clearError() {
         setTimeout(() => {
             setError(null);
@@ -36,7 +36,7 @@ export default function Login() {
         // Send a POST request to the server
         try {
             const BASE_URL = "http://localhost:8080";
-            await fetch(`${BASE_URL}/auth/login`, {
+            const response = await fetch(`${BASE_URL}/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -44,7 +44,19 @@ export default function Login() {
                 body: jsonString
             })
 
+            const {message, data} = await response.json();
+
+            if (response.status === 401) {
+                setError(message);
+                clearError();
+                return;
+            }
+            
+            // Save the token somewhere so that we can access it whenever we want
+            localStorage.setItem("token", data);
+
             // Navigate to Dashboard
+            navigate("/dashboard");
         } catch (error) {
             console.log(error);
             setError("An error occurred. Please try again later.");

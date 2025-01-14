@@ -9,7 +9,7 @@ export function login(req: Request, res: Response) {
     const { username, password } = req.body
 
     if(!password || !username){
-        res.status(StatusCodes.BAD_REQUEST)
+        res.status(StatusCodes.UNAUTHORIZED)
         res.json({
             message: "Missing one or more out of password, username!"
         })
@@ -19,7 +19,7 @@ export function login(req: Request, res: Response) {
     const foundUser = userDb.getUserByUsername(username)
 
     if(!foundUser){
-        res.status(StatusCodes.BAD_REQUEST)
+        res.status(StatusCodes.UNAUTHORIZED)
         res.json({
             message: "Invalid username provided!"
         })
@@ -27,7 +27,7 @@ export function login(req: Request, res: Response) {
     }
 
     if(foundUser.password !== password){
-        res.status(StatusCodes.BAD_REQUEST)
+        res.status(StatusCodes.UNAUTHORIZED)
         res.json({
             message: "Invalid password provided!"
         })
@@ -53,14 +53,24 @@ export function signUp(req: Request, res: Response) {
         return
     }
 
-    const foundUser = userDb.getUserByUsername(username)
+    let foundUser = userDb.getUserByUsername(username)
     if(foundUser){
         res.status(StatusCodes.BAD_REQUEST)
         res.json({
-            message: "Username already exists, Please try different one!"
+            message: "Username already exists with this username!"
         })
         return
     }
+
+    foundUser = userDb.getUserByEmail(email)
+    if(foundUser){
+        res.status(StatusCodes.BAD_REQUEST)
+        res.json({
+            message: "User already exists with this email!"
+        })
+        return
+    }
+
     let maxId = userDb.getMaxId()
 
     // Add new user to the array

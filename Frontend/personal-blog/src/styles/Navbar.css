@@ -10,14 +10,48 @@
 }
 
 .navbar .logo{
-    color: rgb(20, 45, 235);
+    background-color: teal;
+    color: white;
+    padding: 5px 15px;
     font-size: 1.5rem;
+    border-radius: 2px;
     text-decoration: none;
 }
 
 .navbar .links{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     gap: 10px;
+}
+
+.navbar .links .login-button{
+    padding: 5px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: rgb(20, 45, 235);
+    font-size: 13px;
+    border: 2px solid rgb(20, 45, 235);
+}
+
+.navbar .links .login-button:hover{
+    background-color: transparent;
+    color: rgb(20, 45, 235);
+}
+
+.navbar .links .logout-button{
+    padding: 7px 20px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    background-color: rgb(219, 72, 46);
+    cursor: pointer;
+    border: 2px solid rgb(219, 72, 46);
+}
+
+.navbar .links .logout-button:hover{
+    background-color: transparent;
+    color: rgb(235, 20, 20, 0.8);
 }
