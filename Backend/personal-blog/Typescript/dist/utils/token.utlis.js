@@ -12,7 +12,7 @@ export function tokenValidation(token) {
     const currTime = new Date().getTime();
     const diffInMilliseconds = Math.abs(currTime - givenTime);
     const minDiff = diffInMilliseconds / (1000 * 60);
-    if (minDiff > 5) {
+    if (minDiff > 60) {
         return false;
     }
     let user = userDb.getUserById(id);

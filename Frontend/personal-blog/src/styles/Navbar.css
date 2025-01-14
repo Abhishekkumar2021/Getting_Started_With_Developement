@@ -10,7 +10,7 @@
 }
 
 .navbar .logo{
-    background-color: teal;
+    background-color: black;
     color: white;
     padding: 5px 15px;
     font-size: 1.5rem;
@@ -22,36 +22,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
 }
 
-.navbar .links .login-button{
-    padding: 5px 20px;
-    border-radius: 30px;
-    text-decoration: none;
-    color: #ffffff;
-    background-color: rgb(20, 45, 235);
-    font-size: 13px;
-    border: 2px solid rgb(20, 45, 235);
-}
-
-.navbar .links .login-button:hover{
-    background-color: transparent;
-    color: rgb(20, 45, 235);
-}
-
-.navbar .links .logout-button{
-    padding: 7px 20px;
-    border-radius: 30px;
+.navbar .links .logout-button, .navbar .links .login-button{
+    padding: 5px 15px;
+    font-size: 16px;
+    color: black;
     border: none;
     outline: none;
-    color: #ffffff;
-    background-color: rgb(219, 72, 46);
-    cursor: pointer;
-    border: 2px solid rgb(219, 72, 46);
+    background: none;
 }
 
-.navbar .links .logout-button:hover{
-    background-color: transparent;
-    color: rgb(235, 20, 20, 0.8);
+.navbar .links .logout-button:hover, .navbar .links .login-button:hover{
+    background-color: black;
+    color: white;
+}
+
+.navbar .links a{
+    text-decoration: none;
+    color: black;
+    padding: 5px 15px;
+    transition: all 0.3s ease;
+}
+
+.navbar .links a:hover{
+    background-color: black;
+    color: white;
 }

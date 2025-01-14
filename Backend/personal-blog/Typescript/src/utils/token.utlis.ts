@@ -17,7 +17,7 @@ export function tokenValidation(token: string){
 
     const minDiff = diffInMilliseconds/(1000 * 60)
 
-    if(minDiff > 5){
+    if(minDiff > 60){
         return false
     }
 

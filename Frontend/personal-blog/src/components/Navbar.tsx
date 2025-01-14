@@ -19,6 +19,7 @@ export default function Navbar() {
                 {
                     isLogin ? (
                         <>
+                            <NavLink to='/articles'>All Articles</NavLink>
                             <button className="logout-button" onClick={handleLogout}>Logout</button>
                         </>
                     ) : (
