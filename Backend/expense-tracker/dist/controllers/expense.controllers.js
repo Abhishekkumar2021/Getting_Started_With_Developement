@@ -4,7 +4,7 @@ import ExpenseDatabase from "../database/expense.db.js";
 const expenseDb = new ExpenseDatabase();
 export function addExpense(req, res) {
     try {
-        let { description, category, amount } = req.body;
+        let { description, category, amount, created } = req.body;
         if (!amount) {
             res.status(400).json(new ErrorResponse("The amount field is required!", 400));
             return;
@@ -19,7 +19,7 @@ export function addExpense(req, res) {
         if (!description) {
             description = "No description provided!";
         }
-        const id = expenseDb.addExpense(amount, description, category);
+        const id = expenseDb.addExpense(amount, description, category, created);
         res.status(201).json(new SuccessResponse(id, 201, "Succesfully added the expense!"));
     }
     catch (error) {
@@ -77,6 +77,94 @@ export function getExpense(req, res) {
             return;
         }
         res.status(200).json(new SuccessResponse(expense, 200, "Succesfully fetched the expense!"));
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json(new ErrorResponse("Something went wrong!", 500));
+    }
+}
+export function totalExpense(req, res) {
+    try {
+        const value = expenseDb.totalExpense();
+        res.status(200).json(new SuccessResponse(value, 200, "Successfully fetched total expense!"));
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json(new ErrorResponse("Something went wrong!", 500));
+    }
+}
+export function expenseOfAllMonths(_, res) {
+    try {
+        const value = expenseDb.expenseOfAllMonths();
+        res.status(200).json(new SuccessResponse(value, 200, "Successfully fetched total expense of all months!"));
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json(new ErrorResponse("Something went wrong!", 500));
+    }
+}
+export function expenseOfMonth(req, res) {
+    try {
+        const { month } = req.params;
+        const value = expenseDb.expenseOfMonth(month);
+        res.status(200).json(new SuccessResponse(value, 200, "Successfully fetched total expense of the month!"));
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json(new ErrorResponse("Something went wrong!", 500));
+    }
+}
+export function expenseOfAllYears(_, res) {
+    try {
+        const value = expenseDb.expenseOfAllYears();
+        res.status(200).json(new SuccessResponse(value, 200, "Successfully fetched total expense of all years!"));
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json(new ErrorResponse("Something went wrong!", 500));
+    }
+}
+export function expenseOfYear(req, res) {
+    try {
+        const { year } = req.params;
+        const value = expenseDb.expenseOfYear(year);
+        res.status(200).json(new SuccessResponse(value, 200, "Successfully fetch year expense!"));
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json(new ErrorResponse("Something went wrong!", 500));
+    }
+}
+export function expenseByCategories(req, res) {
+    try {
+        const value = expenseDb.expenseByCategories();
+        res.status(200).json(new SuccessResponse(value, 200, "Successfully fetched all categories expense!"));
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json(new ErrorResponse("Something went wrong!", 500));
+    }
+}
+export function expenseOfCategory(req, res) {
+    try {
+        const { category } = req.params;
+        const value = expenseDb.expenseOfCategory(category);
+        res.status(200).json(new SuccessResponse(value, 200, "Successfully fetched category expense!"));
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json(new ErrorResponse("Something went wrong!", 500));
+    }
+}
+export function expenseByRange(req, res) {
+    try {
+        const { from, to } = req.query;
+        if (!from || !to) {
+            res.status(400).json(new ErrorResponse(`Both "from" and "to" are required!`, 400));
+            return;
+        }
+        const value = expenseDb.expenseByRange(from, to);
+        res.status(200).json(new SuccessResponse(value, 200, "Successfully fetched range expense!"));
     }
     catch (error) {
         console.log(error);

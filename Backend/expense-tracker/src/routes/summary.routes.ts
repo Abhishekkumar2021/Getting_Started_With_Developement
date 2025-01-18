@@ -1,21 +1,22 @@
 import { Router } from "express";
+import { expenseOfAllMonths, totalExpense, expenseOfMonth, expenseOfAllYears, expenseOfYear, expenseByCategories, expenseOfCategory, expenseByRange } from "../controllers/expense.controllers.js";
 
 const router = Router();
 
-router.get("/", (req, res) => {})
+router.get("/", totalExpense)
 
-router.get("/months", (req, res) => {})
+router.get("/months", expenseOfAllMonths)
 
-router.get("/months/:month", (req, res) => {})
+router.get("/months/:month", expenseOfMonth)
 
-router.get("/years", (req, res) => {})
+router.get("/years", expenseOfAllYears)
 
-router.get("/years/:year", (req, res) => {})
+router.get("/years/:year", expenseOfYear)
 
-router.get("/range", (req, res) => {})
+router.get("/categories", expenseByCategories)
 
-router.get("/categories", (req, res) => {})
+router.get("/categories/:category", expenseOfCategory)
 
-router.get("/categories/:category", (req, res) => {})
+router.get("/range", expenseByRange)
 
 export default router
