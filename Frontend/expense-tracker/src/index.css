@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+:root {
+  --bg-dark: #222222; /* Primary background color, dark theme */
+  --bg-medium: #42424b; /* Secondary background color, medium contrast */
+  --accent: #e8ab48; /* Secondary text or accent color, teal */
+  --text-light: #dde6ed; /* Primary text color, light on dark */
+  --highlight: rgb(18, 172, 18);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-weight: 400;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  color-scheme: dark;
+}

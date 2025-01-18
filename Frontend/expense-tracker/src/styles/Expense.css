@@ -1,0 +1,52 @@
+.expense{
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    gap: 20px;
+}
+
+.expense .left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    background-color: var(--accent);
+    color: var(--bg-dark);
+    border-radius: 50%;
+    padding: 10px;
+    height: 120px;
+    width: 120px;
+    outline: 5px ridge var(--accent);
+    outline-offset: 5px;
+}
+
+.expense .right{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+}
+
+.expense .right .header{
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.expense .right .header h1{
+    color: var(--highlight);
+    font-size: 36px;
+    width: 200px;
+    text-align: right;
+}
+
+.expense .footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.expense .footer p{
+    font-weight: bold;
+    font-size: 20px;
+}
+

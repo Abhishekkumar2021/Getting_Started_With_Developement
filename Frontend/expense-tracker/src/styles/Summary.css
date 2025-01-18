@@ -1,0 +1,5 @@
+.summary{
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--text-light)
+}

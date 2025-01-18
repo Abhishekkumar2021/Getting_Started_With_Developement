@@ -1,1 +1,42 @@
-[{"id":"63d51f5e-d55d-43ce-9132-6ced7d0bf24e","description":"Wow!","category":"TRAVEL","amount":5,"created":"2025-06-16","updated":"2025-01-18"},{"id":"660a85a6-a5ff-4b2b-b6bf-84c503332597","description":"Wow!","category":"TRAVEL","amount":5,"created":"2025-10-17","updated":"2025-01-18"},{"id":"5b9f500f-b1be-4108-b45d-4ba7124083e9","description":"Wow!","category":"TRAVEL","amount":5,"created":"2025-12-17","updated":"2025-01-18"},{"id":"95863abf-9d6a-4595-8095-18f3775f6087","description":"Wow!","category":"TRAVEL","amount":100,"created":"2024-12-17","updated":"2025-01-18"},{"id":"c046afa6-237d-4a2b-b385-48efc4563711","description":"Wow!","category":"FOOD","amount":100,"created":"2024-12-17","updated":"2025-01-18"}]
+[
+    {
+        "id": "63d51f5e-d55d-43ce-9132-6ced7d0bf24e",
+        "description": "This is a very brief description about the expense that has been completed",
+        "category": "TRAVEL",
+        "amount": 5,
+        "created": "2025-06-16",
+        "updated": "2025-01-18"
+    },
+    {
+        "id": "660a85a6-a5ff-4b2b-b6bf-84c503332597",
+        "description": "This is a very brief description about the expense that has been completed",
+        "category": "TRAVEL",
+        "amount": 5,
+        "created": "2025-10-17",
+        "updated": "2025-01-18"
+    },
+    {
+        "id": "5b9f500f-b1be-4108-b45d-4ba7124083e9",
+        "description": "This is a very brief description about the expense that has been completed",
+        "category": "TRAVEL",
+        "amount": 5,
+        "created": "2025-12-17",
+        "updated": "2025-01-18"
+    },
+    {
+        "id": "95863abf-9d6a-4595-8095-18f3775f6087",
+        "description": "This is a very brief description about the expense that has been completed",
+        "category": "TRAVEL",
+        "amount": 100,
+        "created": "2024-12-17",
+        "updated": "2025-01-18"
+    },
+    {
+        "id": "c046afa6-237d-4a2b-b385-48efc4563711",
+        "description": "This is a very brief description about the expense that has been completed",
+        "category": "FOOD",
+        "amount": 100,
+        "created": "2024-12-17",
+        "updated": "2025-01-18"
+    }
+]

@@ -3,6 +3,7 @@ import expenseRouter from "./routes/expense.routes.js"
 import summaryRouter from "./routes/summary.routes.js"
 import categoryRouter from "./routes/category.routes.js"
 import bodyParser from "body-parser"
+import cors from "cors"
 
 // Server Object
 const app = express()
@@ -12,6 +13,7 @@ app.listen(8080, () => { console.log("✅ Succesfully started the server. You ca
 
 // Middlewares
 app.use(bodyParser.json())
+app.use(cors())
 
 // Routes
 app.use("/expenses", expenseRouter)
