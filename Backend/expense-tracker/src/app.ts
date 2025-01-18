@@ -1,6 +1,7 @@
 import express from "express"
 import expenseRouter from "./routes/expense.routes.js"
 import summaryRouter from "./routes/summary.routes.js"
+import categoryRouter from "./routes/category.routes.js"
 import bodyParser from "body-parser"
 
 // Server Object
@@ -15,3 +16,4 @@ app.use(bodyParser.json())
 // Routes
 app.use("/expenses", expenseRouter)
 app.use("/summary", summaryRouter)
+app.use("/categories", categoryRouter)
