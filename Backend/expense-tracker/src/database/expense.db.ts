@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid"
 import Expense from "../models/expense.model.js";
-import { dateToString } from "../utility/date.utils.js";
+import { dateToString, stringToDate } from "../utility/date.utils.js";
 import { existsSync, readFileSync, writeFileSync } from "node:fs"
 
 class ExpenseDatabase {
@@ -37,12 +37,18 @@ class ExpenseDatabase {
         }
     }
 
-    addExpense(amount: number, description: string, category: string): string {
+    addExpense(amount: number, description: string, category: string, createdDate: string): string {
         // Generate an unique ID
         const id = uuid()
 
+        if (!createdDate) {
+            createdDate = dateToString(new Date());
+        } else {
+            createdDate = dateToString(new Date(createdDate))
+        }
+
         // Create an expense object
-        const expense = new Expense(id, description, category, amount, dateToString(new Date()), dateToString(new Date()))
+        const expense = new Expense(id, description, category, amount, createdDate, dateToString(new Date()))
 
         // Updating expense in DB file
         this.expenses.push(expense)
@@ -59,7 +65,7 @@ class ExpenseDatabase {
         let isFound = false;
 
         this.expenses = this.expenses.filter((expense) => {
-            if(expense.id === id) {
+            if (expense.id === id) {
                 isFound = true;
             }
 
@@ -95,6 +101,101 @@ class ExpenseDatabase {
         return this.expenses.find((expense) => {
             return expense.id === id
         })
+    }
+
+    totalExpense() {
+        let total = 0;
+        this.expenses.forEach((expense) => {
+            total += expense.amount;
+        })
+
+        return total;
+    }
+
+    expenseOfAllMonths(){
+        const expenses: { [key: number]: number } = {}
+
+        for (const expense of this.expenses) {
+            const month = stringToDate(expense.created).getMonth() + 1
+            if (!expenses[month]) expenses[month] = 0
+            expenses[month] += expense.amount;
+        }
+
+        return expenses;
+    }
+
+    expenseOfMonth(month: string){
+        let total = 0;
+        for (const expense of this.expenses) {
+            const expenseMonth = stringToDate(expense.created).getMonth() + 1;
+            if (expenseMonth === parseInt(month)) total += expense.amount;
+        }
+        return total
+    }
+
+    expenseOfAllYears() {
+        const expenses: { [key: number]: number } = {}
+
+        for (const expense of this.expenses) {
+            const year = stringToDate(expense.created).getFullYear()
+
+            if (!expenses[year]) expenses[year] = 0;
+
+            expenses[year] += expense.amount
+        }
+
+        return expenses
+    }
+
+
+    expenseOfYear(year: string){
+        let total = 0;
+
+        for(const expense of this.expenses){
+            const expenseYear = stringToDate(expense.created).getFullYear()
+
+            if(expenseYear === parseInt(year)) total += expense.amount
+        }
+
+        return total
+    }
+
+    expenseByCategories(){
+        const expenses: {[key: string]: number} = {}
+
+        for(const expense of this.expenses){
+
+            if(!expenses[expense.category]) expenses[expense.category] = 0;
+            expenses[expense.category] += expense.amount
+        }
+
+        return expenses
+    }
+
+    expenseOfCategory(category: string){
+        let total = 0;
+
+        for(const expense of this.expenses){
+            if(expense.category === category) total += expense.amount
+        }
+
+        return total
+    }
+
+
+    expenseByRange(from: string, to: string){
+        const fromDate = stringToDate(from)
+        const toDate = stringToDate(to)
+
+        if(fromDate > toDate) return 0
+
+        let total = 0
+        for(const expense of this.expenses){
+            const date = stringToDate(expense.created)
+            if(date >= fromDate && date <= toDate) total += expense.amount
+        }
+
+        return total
     }
 }
 
