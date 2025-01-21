@@ -15,6 +15,20 @@
     font-weight: bold;
 }
 
+.dashboard .dashboard-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dashboard .dashboard-header a{
+    font-size: 40px;
+    color: var(--accent);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
 .dashboard h2{
     font-weight: bold;
     color: var(--accent);
@@ -27,5 +41,5 @@
 .dashboard .expenses{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 30px;
 }
