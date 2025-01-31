@@ -29,13 +29,22 @@
     border-radius: 50%;
 }
 
-.dashboard h2{
+.dashboard .expense-header{
     font-weight: bold;
     color: var(--accent);
-    text-align: center;
-    padding: 10px;
     border-bottom: 1px solid var(--accent);
     border-top: 1px solid var(--accent);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+}
+
+.dashboard .expense-header .filters button{
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
 .dashboard .expenses{

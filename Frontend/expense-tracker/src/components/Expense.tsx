@@ -3,24 +3,31 @@ import dayjs from "dayjs"
 import "../styles/Expense.css"
 import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
-import { Dispatch, SetStateAction } from "react";
+
+interface ExpenseProps{
+    expense: ExpenseType,
+    deleteExpense: (idx: number) => void,
+    index: number
+}
 
 
-export default function Expense({ expense, index, setExpenses, expenses }: { expense: ExpenseType, index: number, setExpenses: Dispatch<SetStateAction<never[]>>, expenses: never[] }) {
-    
+const BASE_URL = "http://localhost:8080"
+
+export default function Expense(props: ExpenseProps) {
+    const {expense, deleteExpense, index} = props
     function handleEdit(){
 
     }
 
-    function handleDelete(){
+    async function handleDelete(){
         try {
-            // API call you had to do
-            const newExpenses = expenses.filter((_, idx) => {
-                return idx != index
+            // Delete in backend
+            await fetch(`${BASE_URL}/expenses/${expense.id}`, {
+                method: "DELETE"
             })
 
-            setExpenses(newExpenses)
-            
+            // Delete in frontend
+            deleteExpense(index)
         } catch (error) {
             console.log(error);
         }
