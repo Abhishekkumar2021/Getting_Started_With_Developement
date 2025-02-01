@@ -17,6 +17,10 @@ export default function Dashboard() {
 
     const [isMonthFilter, setIsMonthFilter] = useState(false)
 
+    {/* this state variable is for filtering today's expenses */ }
+    const [isTodayFilter, setIsTodayFilter] = useState(false)
+    const [isRangeFilter, setIsRangeFilter] = useState(false)
+
     // 3 cases
     //  1. no dependency array: Start, and on changing any state variable
     //  2. empty dependency array: Start
@@ -57,11 +61,14 @@ export default function Dashboard() {
     async function deleteExpense(idx: number) {
         const updatedExpenses = expenses.filter((_, index) => index != idx)
         setExpenses(updatedExpenses)
+        const updatedFilteredExpenses = filteredExpenses.filter((_,index) => index != idx)
+        setFilteredExpenses(updatedFilteredExpenses)
         await fetchExpenseForCurrentYear()
     }
 
     function handleMonth(){
         // No other filter is there
+        if(isTodayFilter || isRangeFilter) return
 
         if(isMonthFilter) {
             setFilteredExpenses(expenses)
@@ -80,6 +87,48 @@ export default function Dashboard() {
         setFilteredExpenses(filExpenses)
     }
 
+    function handleTodaysExpense(){
+        
+        if(isMonthFilter || isRangeFilter) return
+
+        if(isTodayFilter) {
+            setFilteredExpenses(expenses)
+            setIsTodayFilter(false);
+            return;
+        }
+
+        setIsTodayFilter(true)
+
+        const date = new Date()
+
+        const filtExpenses = expenses.filter((expense) => {
+            const expenseDate = new Date(expense.created)
+            return date.getDay() === expenseDate.getDay() && date.getFullYear() === expenseDate.getFullYear()
+        })
+
+        setFilteredExpenses(filtExpenses)
+    }
+
+    function handleRangeExpense(){
+
+        if(isMonthFilter || isTodayFilter) return
+
+        if(isRangeFilter){
+            setFilteredExpenses(expenses)
+            setIsRangeFilter(false);
+            return;
+        }
+
+        setIsRangeFilter(true)
+
+        const filtExpenses = expenses.filter((expense) => {
+            const expenseAmout = expense.amount
+            return expenseAmout <= 200
+        })
+
+        setFilteredExpenses(filtExpenses)
+    }
+
     return (
         <div className="dashboard">
             <div className="dashboard-header">
@@ -96,6 +145,13 @@ export default function Dashboard() {
                         <button onClick={handleMonth} style={{
                             backgroundColor: isMonthFilter ? "rgb(18, 172, 18)" : "#42424b"
                         }}>This Month</button>
+                        {/* this button is for filtering today's expenses */}
+                        <button onClick={handleTodaysExpense} style={{
+                            backgroundColor: isTodayFilter ? "rgb(18, 172, 18)" : "#42424b"
+                        }}>Today</button>
+                        <button onClick={handleRangeExpense} style={{
+                            backgroundColor: isRangeFilter ? "rgb(18, 172, 18)" : "#42424b"
+                        }}>Up to Rs. 200/-</button>
                     </div>
                 </div>
                 <div className="expenses">

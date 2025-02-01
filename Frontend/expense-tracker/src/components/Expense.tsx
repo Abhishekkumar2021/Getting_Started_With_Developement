@@ -3,6 +3,7 @@ import dayjs from "dayjs"
 import "../styles/Expense.css"
 import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
+import { useNavigate } from "react-router";
 
 interface ExpenseProps{
     expense: ExpenseType,
@@ -14,9 +15,10 @@ interface ExpenseProps{
 const BASE_URL = "http://localhost:8080"
 
 export default function Expense(props: ExpenseProps) {
+    const navigate = useNavigate()
     const {expense, deleteExpense, index} = props
     function handleEdit(){
-
+        navigate(`/edit/${expense.id}`)
     }
 
     async function handleDelete(){
@@ -36,7 +38,7 @@ export default function Expense(props: ExpenseProps) {
     return (
         <div className="expense">
             <div className="left">
-                <h1>{expense.category}</h1>
+                <p>{expense.category}</p>
             </div>
             <div className="right">
                 <div className="header">

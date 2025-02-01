@@ -8,6 +8,7 @@ type TodoType = {
 export type TodoPropsType = {
     todo: TodoType;
     index: number;
+    deleteTodo: (index: number) => void;
 }
 
 export default TodoType;

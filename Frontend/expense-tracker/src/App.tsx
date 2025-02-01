@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
 import Summary from './pages/Summary'
 import AddExpense from './pages/AddExpense'
+import EditExpense from './pages/EditExpense'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />}/>
         <Route path='/summary' element={<Summary />}/>
         <Route path='/add' element={<AddExpense />}/>
+        <Route path='/edit/:id' element={<EditExpense />}/>
       </Routes>
     </div>
   )
