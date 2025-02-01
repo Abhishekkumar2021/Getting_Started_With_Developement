@@ -45,6 +45,7 @@
     outline: none;
     padding: 5px 10px;
     border-radius: 5px;
+    gap :10px
 }
 
 .dashboard .expenses{
