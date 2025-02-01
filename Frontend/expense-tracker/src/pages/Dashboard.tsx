@@ -61,11 +61,14 @@ export default function Dashboard() {
     async function deleteExpense(idx: number) {
         const updatedExpenses = expenses.filter((_, index) => index != idx)
         setExpenses(updatedExpenses)
+        const updatedFilteredExpenses = filteredExpenses.filter((_,index) => index != idx)
+        setFilteredExpenses(updatedFilteredExpenses)
         await fetchExpenseForCurrentYear()
     }
 
     function handleMonth(){
         // No other filter is there
+        if(isTodayFilter || isRangeFilter) return
 
         if(isMonthFilter) {
             setFilteredExpenses(expenses)
@@ -86,6 +89,8 @@ export default function Dashboard() {
 
     function handleTodaysExpense(){
         
+        if(isMonthFilter || isRangeFilter) return
+
         if(isTodayFilter) {
             setFilteredExpenses(expenses)
             setIsTodayFilter(false);
@@ -105,6 +110,8 @@ export default function Dashboard() {
     }
 
     function handleRangeExpense(){
+
+        if(isMonthFilter || isTodayFilter) return
 
         if(isRangeFilter){
             setFilteredExpenses(expenses)

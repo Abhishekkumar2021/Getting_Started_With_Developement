@@ -47,6 +47,10 @@
     border-radius: 5px;
     gap :10px
 }
+.dashboard .expense-header .filters{
+    display: flex;
+    gap:20px;
+}
 
 .dashboard .expenses{
     display: flex;
