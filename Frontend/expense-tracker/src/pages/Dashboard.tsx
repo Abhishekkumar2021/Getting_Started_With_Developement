@@ -3,6 +3,7 @@ import "../styles/Dashboard.css"
 import Expense from "../components/Expense";
 import { NavLink } from "react-router";
 import { FaCirclePlus } from "react-icons/fa6";
+import { MdArrowForward } from "react-icons/md";
 import { Tooltip } from 'react-tooltip'
 import ExpenseType from "../types/expense.type";
 
@@ -103,7 +104,7 @@ export default function Dashboard() {
 
         const filtExpenses = expenses.filter((expense) => {
             const expenseDate = new Date(expense.created)
-            return date.getDay() === expenseDate.getDay() && date.getFullYear() === expenseDate.getFullYear()
+            return date.getDate() === expenseDate.getDate() && date.getFullYear() === expenseDate.getFullYear() && date.getMonth() === expenseDate.getMonth()
         })
 
         setFilteredExpenses(filtExpenses)
@@ -133,7 +134,10 @@ export default function Dashboard() {
         <div className="dashboard">
             <div className="dashboard-header">
                 <h1>Total Expense in {currentYear} : <span>&#8377; {totalExpense} </span> </h1>
-                <NavLink to='/add' data-tooltip-id="add-expense-button" data-tooltip-content="Add New Expense"><FaCirclePlus /></NavLink>
+                <div className="navlinks">
+                    <NavLink to='/add' data-tooltip-id="add-expense-button" data-tooltip-content="Add New Expense"><FaCirclePlus /></NavLink>
+                    <NavLink to="/summary" data-tooltip-id="next-button" data-tooltip-content="Go Forward"><MdArrowForward /></NavLink>
+                </div>
             </div>
 
             {/* Expenses list */}
@@ -169,6 +173,10 @@ export default function Dashboard() {
                 backgroundColor: "#e8ab48",
                 color: "#222222"
             }} id="add-expense-button" />
+            <Tooltip style={{
+                backgroundColor: "#e8ab48",
+                color: "#222222"
+            }} id="next-button" />
         </div>
     )
 }

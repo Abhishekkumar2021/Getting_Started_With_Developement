@@ -4,3 +4,15 @@
     justify-content: center;
     background: linear-gradient(white, lightgreen);
 }
+.month-summary{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(white, lightgreen);
+}
+.year-summary{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(white, lightgreen);
+}

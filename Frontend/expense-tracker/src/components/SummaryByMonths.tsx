@@ -47,23 +47,23 @@ export default function SummaryByMonths() {
         getSummary()
     }, [])
 
-    const myMap = new Map();
-    myMap.set("1", "Jan")
-    myMap.set("2", "Feb")
-    myMap.set("3", "Mar")
-    myMap.set("4", "Apr")
-    myMap.set("5", "May")
-    myMap.set("6", "June")
-    myMap.set("7", "July")
-    myMap.set("8", "Aug")
-    myMap.set("9", "Sep")
-    myMap.set("10", "Oct")
-    myMap.set("11", "Nov")
-    myMap.set("12", "Dec")
-
+    const myMap = new Map(Object.entries({
+        "1": "Jan",
+        "2": "Feb",
+        "3": "Mar",
+        "4": "Apr",
+        "5": "May",
+        "6": "June",
+        "7": "July",
+        "8": "Aug",
+        "9": "Sep",
+        "10": "Oct",
+        "11": "Nov",
+        "12": "Dec"
+    }))
 
     return (
-        <section className="Months-summary">
+        <section className="months-summary">
             <Bar options={options} data={{
                 labels: Object.keys(summary).map((key) => myMap.get(key)),
                 datasets: [
