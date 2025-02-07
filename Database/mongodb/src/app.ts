@@ -1,6 +1,9 @@
 import { MongoClient } from "mongodb"
+import dotenv from "dotenv"
 
-const client = new MongoClient("mongodb://localhost:27017")
+dotenv.config()
+
+const client = new MongoClient(process.env.MONGODB_URL!)
 
 async function getStudentData(){
     const db = client.db("University")

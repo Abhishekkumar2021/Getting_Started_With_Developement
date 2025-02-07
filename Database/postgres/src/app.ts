@@ -1,11 +1,23 @@
 import pg from 'pg'
+import dotenv from "dotenv"
+
+dotenv.config()
+
+const {
+    POSTGRES_HOST,
+    POSTGRES_PORT,
+    POSTGRES_USER,
+    POSTGRES_PASSWORD,
+    POSTGRES_DATABASE
+} = process.env
+
 const { Client } = pg
 const client = new Client({
-    host: "localhost",
-    port: 5432,
-    user: "postgres",
-    password: "postgres",
-    database: "University"
+    host: POSTGRES_HOST,
+    port: parseInt(POSTGRES_PORT!),
+    user: POSTGRES_USER,
+    password: POSTGRES_PASSWORD,
+    database: POSTGRES_DATABASE
 })
 
 await client.connect()

@@ -1,5 +1,7 @@
 import { MongoClient } from "mongodb";
-const client = new MongoClient("mongodb://localhost:27017");
+import dotenv from "dotenv";
+dotenv.config();
+const client = new MongoClient(process.env.MONGODB_URL);
 async function getStudentData() {
     const db = client.db("University");
     const collection = db.collection("Students");
