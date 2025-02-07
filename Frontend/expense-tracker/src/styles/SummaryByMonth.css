@@ -1,0 +1,6 @@
+.months-summary{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(white, lightgreen);
+}
