@@ -44,18 +44,56 @@ export async function delete_Expense(id) {
     return res.deletedCount;
 }
 export async function total_expense() {
+    const result = await collection.aggregate([
+        { $group: { _id: null, total: { $sum: "$amount" } } }
+    ]).toArray();
+    return result.length > 0 ? result[0].total : 0;
 }
 export async function expense_of_all_months() {
+    const result = await collection.aggregate([
+        { $group: {
+                _id: { month: { $month: { $toDate: "$createdDate" } }, year: { $year: { $toDate: "$createdDate" } } },
+                total: { $sum: "$amount" }
+            } }
+    ]).toArray();
+    return result;
 }
 export async function expense_of_month(month) {
+    const expenses = await collection.find({
+        createdDate: {
+            $regex: `^${month.padStart(2, '0')}`
+        }
+    }).toArray();
+    return expenses;
 }
 export async function expense_of_all_years() {
+    const result = await collection.aggregate([
+        { $group: {
+                _id: { year: { $year: { $toDate: "$createdDate" } } },
+                total: { $sum: "$amount" }
+            } }
+    ]).toArray();
+    return result;
 }
 export async function expense_of_year(year) {
+    const expenses = await collection.find({
+        createdDate: { $regex: `^${year}-` }
+    }).toArray();
+    return expenses;
 }
 export async function expense_by_categories() {
+    const result = await collection.aggregate([
+        { $group: { _id: "$category", total: { $sum: "$amount" } } }
+    ]).toArray();
+    return result;
 }
 export async function expense_of_category(category) {
+    const expenses = await collection.find({ category }).toArray();
+    return expenses;
 }
 export async function expense_of_range(from, to) {
+    const expenses = await collection.find({
+        createdDate: { $gte: from, $lte: to }
+    }).toArray();
+    return expenses;
 }
