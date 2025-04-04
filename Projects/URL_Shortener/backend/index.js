@@ -3,11 +3,13 @@ import cors from "cors"
 import { redirect, shorten } from "./controllers/url.controller.js";
 import { SERVER_PORT } from "./config/variables.js";
 import client from "./db/client.js";
+import bodyParser from "body-parser";
 
 const app = express()
 
 // Middleware
 app.use(cors())
+app.use(bodyParser.json())
 
 // Routes
 // GET /: Home 
@@ -21,7 +23,7 @@ app.get("/", (req, res) => {
 app.post("/shorten", shorten)
 
 // GET /{id}: Redirect to long url corresponding to this id
-app.get("/{id}", redirect)
+app.get("/:url_id", redirect)
 
 // Bind the server to given PORT
 app.listen(SERVER_PORT, async () => {

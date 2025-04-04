@@ -60,6 +60,16 @@ paths:
       responses:
         "301":
           description: Redirects to the original long URL.
+        "400":
+          description: Bad Request
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: "URL Expired!"
         "500":
           description: Internal Server Error
           content: 

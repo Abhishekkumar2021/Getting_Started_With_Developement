@@ -11,4 +11,7 @@ const client = new Client({
   database: DB_DATABASE,
 })
 
+export async function runQuery(query, values){
+    return await client.query(query, values)
+}
 export default client;
