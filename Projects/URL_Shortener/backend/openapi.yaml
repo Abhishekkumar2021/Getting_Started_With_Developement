@@ -1,0 +1,72 @@
+openapi: 3.0.4
+info: 
+  title: URL Shortener API
+  description: A simple API to shorten long URLs and redirect short URLs to their original destinations.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /shorten:
+    post: 
+      summary: Shortens a long URL.
+      description: Accepts a long URL in the request body and returns a shortened version.
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema: 
+              type: object
+              properties:
+                long_url: 
+                  type: string
+                  example: https://google.com/accounts
+      responses:
+        "201": 
+          description: Successfully created a shortened URL.
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  short_url:
+                    type: string
+                    example: http://localhost:8080/AcDbf2
+        "500":
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: "Internal Server Error"
+
+  /{url_id}:
+    get:
+      summary: Redirects a short URL to its original long URL.
+      description: Uses the short URL ID to redirect to the full URL.
+      parameters:
+        - name: url_id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: AcDbf2
+          description: The ID portion of the short URL.
+      responses:
+        "301":
+          description: Redirects to the original long URL.
+        "500":
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: 
+                    type: string
+                    example: "Internal Server Error"
